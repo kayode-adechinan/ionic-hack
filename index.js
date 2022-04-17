@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -41,22 +42,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = __importDefault(require("fs"));
 var path_1 = __importDefault(require("path"));
+var yargs = require("yargs/yargs");
+var hideBin = require("yargs/helpers").hideBin;
+var argv = yargs(hideBin(process.argv)).argv;
+//const BASE_PATH = "node_modules/ionic-hack"
 var update = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var startColor, packageName, bgGradient, bgGradientContent, splashBackground, splashBackgroundContent, styles, stylesContent, splashScreenActivity, splashScreenActivityContent, androidManifest, androidManifestContent;
+    var startColor, identifier, packageName, bgGradient, bgGradientContent, splashBackground, splashBackgroundContent, styles, stylesContent, splashScreenActivity, splashScreenActivityContent, androidManifest, androidManifestContent;
     return __generator(this, function (_a) {
-        startColor = "#ff1b49";
-        packageName = "io.ionic.starter".replaceAll(".", "/");
-        bgGradient = fs_1.default.readFileSync(path_1.default.resolve("content/bg_gradient.xml"));
+        startColor = argv.startColor || "#ff1b49";
+        identifier = argv.identifier || "io.ionic.starter";
+        packageName = identifier.replaceAll(".", "/");
+        bgGradient = fs_1.default.readFileSync(path_1.default.resolve(__dirname, "content/bg_gradient.xml"));
         bgGradientContent = bgGradient
             .toString()
             .replaceAll("#ff1b49", startColor);
-        splashBackground = fs_1.default.readFileSync(path_1.default.resolve("content/splash_background.xml"));
+        splashBackground = fs_1.default.readFileSync(path_1.default.resolve(__dirname, "content/splash_background.xml"));
         splashBackgroundContent = splashBackground.toString();
-        styles = fs_1.default.readFileSync(path_1.default.resolve("content/styles.xml"));
+        styles = fs_1.default.readFileSync(path_1.default.resolve(__dirname, "content/styles.xml"));
         stylesContent = styles.toString().replaceAll("#ff1b49", startColor);
-        splashScreenActivity = fs_1.default.readFileSync(path_1.default.resolve("content/SplashScreenActivity.java"));
+        splashScreenActivity = fs_1.default.readFileSync(path_1.default.resolve(__dirname, "content/SplashScreenActivity.java"));
         splashScreenActivityContent = splashScreenActivity.toString();
-        androidManifest = fs_1.default.readFileSync(path_1.default.resolve("content/AndroidManifest.xml"));
+        androidManifest = fs_1.default.readFileSync(path_1.default.resolve(__dirname, "content/AndroidManifest.xml"));
         androidManifestContent = androidManifest.toString();
         fs_1.default.writeFileSync("android/app/src/main/res/drawable/bg_gradient.xml", bgGradientContent);
         fs_1.default.writeFileSync("android/app/src/main/res/drawable/splash_background.xml", splashBackgroundContent);
